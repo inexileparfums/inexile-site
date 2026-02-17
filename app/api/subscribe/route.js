@@ -6,19 +6,22 @@ export async function POST(request) {
       return new Response(JSON.stringify({ error: 'Invalid email' }), { status: 400 })
     }
 
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+    const rawKey = process.env.GOOGLE_PRIVATE_KEY
     const clientEmail = process.env.GOOGLE_CLIENT_EMAIL
     const sheetId = process.env.GOOGLE_SHEET_ID
 
-    if (!privateKey || !clientEmail || !sheetId) {
+    if (!rawKey || !clientEmail || !sheetId) {
       console.error('Missing env vars')
       return new Response(JSON.stringify({ error: 'Server misconfigured' }), { status: 500 })
     }
 
-    // Get access token via JWT
+    // Handle all possible newline encodings Vercel might use
+    const privateKey = rawKey
+      .replace(/\\n/g, '\n')
+      .replace(/\\\\n/g, '\n')
+
     const token = await getAccessToken(clientEmail, privateKey)
 
-    // Append to sheet
     const range = 'Sheet1!A:B'
     const values = [[email, new Date().toISOString()]]
 
@@ -81,11 +84,12 @@ async function signJWT(payload, privateKeyPem) {
 
   const signingInput = `${enc(header)}.${enc(payload)}`
 
-  // Import the private key
+  // Strip PEM headers and all whitespace
   const keyData = privateKeyPem
-    .replace('-----BEGIN PRIVATE KEY-----', '')
-    .replace('-----END PRIVATE KEY-----', '')
-    .replace(/\s/g, '')
+    .replace(/-----BEGIN PRIVATE KEY-----/g, '')
+    .replace(/-----END PRIVATE KEY-----/g, '')
+    .replace(/\s+/g, '')
+    .trim()
 
   const binaryKey = Uint8Array.from(atob(keyData), (c) => c.charCodeAt(0))
 
