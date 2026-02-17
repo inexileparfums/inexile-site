@@ -25,7 +25,6 @@ export default function IntroSection() {
 
   return (
     <>
-      {/* Fixed logo bar after animation — full-width background prevents text bleed-through */}
       {logoMoved && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -49,14 +48,13 @@ export default function IntroSection() {
           <Image
             src="/logo.png"
             alt="IN EXILE"
-            width={100}
-            height={50}
+            width={120}
+            height={40}
             style={{ objectFit: 'contain', opacity: 0.85 }}
           />
         </motion.div>
       )}
 
-      {/* Intro screen */}
       <section className="relative flex items-center justify-center" style={{ height: '100svh', minHeight: '600px' }}>
         {!logoMoved && (
           <motion.div
@@ -67,10 +65,10 @@ export default function IntroSection() {
             <Image
               src="/logo.png"
               alt="IN EXILE"
-              width={700}
-              height={350}
+              width={1200}
+              height={400}
               priority
-              style={{ objectFit: 'contain', width: '75vw', maxWidth: '700px', height: 'auto' }}
+              style={{ objectFit: 'contain', width: '75vw', maxWidth: '900px', height: 'auto' }}
             />
           </motion.div>
         )}
