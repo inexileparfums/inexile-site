@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import Image from 'next/image'
 
@@ -10,31 +10,49 @@ export default function IntroSection() {
   useEffect(() => {
     const timer = setTimeout(async () => {
       await controls.start({
-        y: -60,
-        scale: 0.52,
+        y: -80,
+        scale: 0.18,
         opacity: 0.88,
         transition: {
-          duration: 1.4,
+          duration: 1.6,
           ease: [0.76, 0, 0.24, 1],
         },
       })
       setLogoMoved(true)
-    }, 1500)
+    }, 1800)
     return () => clearTimeout(timer)
   }, [controls])
 
   return (
     <>
-      {/* Fixed logo mark after animation */}
+      {/* Fixed logo bar after animation — full-width background prevents text bleed-through */}
       {logoMoved && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="fixed top-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-          style={{ width: '80px' }}
+          transition={{ duration: 0.5 }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            zIndex: 50,
+            backgroundColor: '#0A0A0A',
+            borderBottom: '1px solid #1A1918',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '16px 0',
+            pointerEvents: 'none',
+          }}
         >
-          <Image src="/logo.png" alt="IN EXILE" width={80} height={40} style={{ objectFit: 'contain', opacity: 0.85 }} />
+          <Image
+            src="/logo.png"
+            alt="IN EXILE"
+            width={100}
+            height={50}
+            style={{ objectFit: 'contain', opacity: 0.85 }}
+          />
         </motion.div>
       )}
 
@@ -44,16 +62,15 @@ export default function IntroSection() {
           <motion.div
             animate={controls}
             initial={{ opacity: 1, scale: 1, y: 0 }}
-            className="flex flex-col items-center gap-6"
             style={{ transformOrigin: 'center center' }}
           >
             <Image
               src="/logo.png"
               alt="IN EXILE"
-              width={180}
-              height={90}
+              width={700}
+              height={350}
               priority
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', width: '75vw', maxWidth: '700px', height: 'auto' }}
             />
           </motion.div>
         )}
