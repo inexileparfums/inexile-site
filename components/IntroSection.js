@@ -63,13 +63,3 @@ export default function IntroSection() {
     </>
   )
 }
-```
-
-**`components/SignupSection.js`** — find this line and delete it:
-```
-borderTop: '1px solid #1E1D1B',
-```
-
-**`components/AboutSection.js`** — find this line and delete it:
-```
-borderTop: '1px solid #1E1D1B',
