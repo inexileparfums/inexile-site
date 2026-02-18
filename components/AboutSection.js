@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 const paragraphs = [
   'Ian Chambers is the founder and perfumer of IN EXILE. Born in Santa Monica and based in Los Angeles, his work is shaped by a lifelong connection to music, independence, and the instinct to create something lasting.',
-  'Before perfumery, he worked in music marketing and artist management, helping build and support artists driven by their own vision. That experience instilled a lasting respect for authorship — and the understanding that the most meaningful work is created outside expectation.',
+  'Before perfumery, he worked in music marketing and artist management, helping build and support artists driven by their own vision. That experience instilled a lasting respect for authorship and the understanding that the most meaningful work is created outside expectation.',
   'He is entirely self-taught. His approach is deliberate and uncompromising, guided by intuition, discipline, and an obsession with material itself. Each composition is developed independently, without adherence to convention, trend, or external influence.',
   'IN EXILE was born from the belief that identity is forged through creation. Perfumery became both craft and language... a way to give form to something invisible, yet permanent.',
   'Every fragrance is composed as an object of presence. A reflection of endurance. A declaration of self-definition.',
