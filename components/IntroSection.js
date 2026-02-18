@@ -16,7 +16,6 @@ export default function IntroSection() {
 
   return (
     <>
-      {/* Fixed header bar — visible when scrolled */}
       <motion.div
         animate={{ opacity: scrolled ? 1 : 0, y: scrolled ? 0 : -10 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -27,7 +26,6 @@ export default function IntroSection() {
           width: '100%',
           zIndex: 50,
           backgroundColor: '#0A0A0A',
-          borderBottom: '1px solid #1A1918',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -44,7 +42,6 @@ export default function IntroSection() {
         />
       </motion.div>
 
-      {/* Full-screen logo — visible when at top */}
       <section
         className="relative flex items-center justify-center"
         style={{ height: '100svh', minHeight: '600px' }}
@@ -66,3 +63,13 @@ export default function IntroSection() {
     </>
   )
 }
+```
+
+**`components/SignupSection.js`** — find this line and delete it:
+```
+borderTop: '1px solid #1E1D1B',
+```
+
+**`components/AboutSection.js`** — find this line and delete it:
+```
+borderTop: '1px solid #1E1D1B',
