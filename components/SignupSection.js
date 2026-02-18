@@ -32,7 +32,6 @@ export default function SignupSection() {
       className="relative z-10"
       style={{
         padding: 'clamp(80px, 14vh, 160px) clamp(24px, 6vw, 80px)',
-        borderTop: '1px solid #1E1D1B',
       }}
     >
       <div style={{ maxWidth: '500px', margin: '0 auto' }}>
