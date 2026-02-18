@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 const lines = [
   { text: 'IN EXILE was born from the belief that identity is forged through creation.', size: 'body' },
-  { text: 'Fragrance is armor, expression, and self-definition —', size: 'body' },
+  { text: 'Fragrance is armor, expression, and self-definition', size: 'body' },
   { text: 'carried without explanation.', size: 'body', indent: true },
   { text: '', size: 'spacer' },
   { text: 'IN EXILE exists in the space between loss and creation.', size: 'body' },
