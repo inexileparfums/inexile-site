@@ -27,7 +27,7 @@ const lines = [
   { text: '', size: 'spacer' },
   { text: 'Every composition from IN EXILE is created with purpose.', size: 'body' },
   { text: 'Nothing is accidental. Nothing is rushed.', size: 'body' },
-  { text: 'Each fragrance is an artifact of endurance —', size: 'body' },
+  { text: 'Each fragrance is an artifact of endurance', size: 'body' },
   { text: 'a reflection of resilience and self-definition.', size: 'body', indent: true },
   { text: '', size: 'spacer' },
   { text: 'IN EXILE is not about perfection. It is about truth.', size: 'body' },
