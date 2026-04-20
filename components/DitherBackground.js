@@ -36,7 +36,14 @@ export default function DitherBackground() {
       return (s + s2 * 0.5 + s3 * 0.25) / 1.75
     }
 
-    const LEVELS = 5
+    const LEVELS = 4
+    const bayer = [
+      [ 0, 8, 2,10],
+      [12, 4,14, 6],
+      [ 3,11, 1, 9],
+      [15, 7,13, 5],
+    ]
+
     const render = () => {
       t += 0.015
       const w = canvas.width
@@ -51,38 +58,27 @@ export default function DitherBackground() {
           const nx = x / w
           const ny = y / h
 
-          // Mouse ripple
           const dx = nx - mx
           const dy = ny - my
           const dist = Math.sqrt(dx * dx + dy * dy)
-          const ripple = Math.sin(dist * 18 - t * 3) * 0.06 * Math.max(0, 1 - dist * 3)
+          const ripple = Math.sin(dist * 18 - t * 3) * 0.1 * Math.max(0, 1 - dist * 3)
 
           let n = noise(nx * 5, ny * 5, t) + ripple
-          n = (n + 1) / 2 // 0..1
+          n = (n + 1) / 2
 
-          // Ordered dither matrix 4x4
-          const bayer = [
-            [ 0, 8, 2,10],
-            [12, 4,14, 6],
-            [ 3,11, 1, 9],
-            [15, 7,13, 5],
-          ]
-          const bx = x % 4
-          const by = y % 4
-          const threshold = bayer[by][bx] / 16
-
+          const threshold = bayer[y % 4][x % 4] / 16
           const quantized = Math.floor(n * LEVELS + threshold) / LEVELS
           const clamped = Math.max(0, Math.min(1, quantized))
 
-          // Map to near-black palette — base ~#0A0A0A, max ~#1A1A1C
+          // Much more visible range: #0A0A0A to #2A2A2E
           const base = 10
-          const range = 16
+          const range = 38
           const val = Math.round(base + clamped * range)
 
           const idx = (y * w + x) * 4
           data[idx] = val
           data[idx + 1] = val
-          data[idx + 2] = Math.round(val * 1.05)
+          data[idx + 2] = Math.round(val * 1.08)
           data[idx + 3] = 255
         }
       }

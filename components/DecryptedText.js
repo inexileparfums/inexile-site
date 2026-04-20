@@ -9,10 +9,8 @@ const srOnly = {
 
 export default function DecryptedText({
   text,
-  speed = 54,
-  maxIterations = 10,
+  speed = 28,
   sequential = true,
-  revealDirection = 'start',
   useOriginalCharsOnly = false,
   characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-',
   className = '',

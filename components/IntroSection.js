@@ -19,8 +19,8 @@ export default function IntroSection() {
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
-          backgroundColor: '#0A0A0A', display: 'flex',
-          justifyContent: 'center', alignItems: 'center',
+          backgroundColor: 'transparent',
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
           padding: '16px 0', pointerEvents: 'none',
         }}
       >
