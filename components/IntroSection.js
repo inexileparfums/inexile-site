@@ -19,9 +19,9 @@ export default function IntroSection() {
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
-          backgroundColor: 'transparent',
+          background: 'linear-gradient(to bottom, rgba(10,10,10,0.98) 60%, transparent 100%)',
           display: 'flex', justifyContent: 'center', alignItems: 'center',
-          padding: '16px 0', pointerEvents: 'none',
+          padding: '16px 0 28px', pointerEvents: 'none',
         }}
       >
         <Image src="/logo.png" alt="IN EXILE" width={120} height={40}
