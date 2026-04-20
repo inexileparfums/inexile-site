@@ -5,18 +5,18 @@ export default function DitherBackground() {
   const canvasRef = useRef(null)
   const animRef = useRef(null)
   const mouseRef = useRef({ x: 0.5, y: 0.5 })
-  const timeRef = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const gl = canvas.getContext('webgl')
-    if (!gl) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let t = 0
 
     const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      gl.viewport(0, 0, canvas.width, canvas.height)
+      canvas.width = Math.ceil(window.innerWidth / 3)
+      canvas.height = Math.ceil(window.innerHeight / 3)
     }
     resize()
     window.addEventListener('resize', resize)
@@ -24,98 +24,73 @@ export default function DitherBackground() {
     const onMouse = (e) => {
       mouseRef.current = {
         x: e.clientX / window.innerWidth,
-        y: 1 - e.clientY / window.innerHeight
+        y: e.clientY / window.innerHeight,
       }
     }
     window.addEventListener('mousemove', onMouse)
 
-    const vert = `
-      attribute vec2 a_pos;
-      void main() { gl_Position = vec4(a_pos, 0, 1); }
-    `
-    const frag = `
-      precision mediump float;
-      uniform vec2 u_res;
-      uniform float u_time;
-      uniform vec2 u_mouse;
-
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-      }
-
-      float noise(vec2 p) {
-        vec2 i = floor(p);
-        vec2 f = fract(p);
-        f = f * f * (3.0 - 2.0 * f);
-        float a = hash(i);
-        float b = hash(i + vec2(1,0));
-        float c = hash(i + vec2(0,1));
-        float d = hash(i + vec2(1,1));
-        return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);
-      }
-
-      void main() {
-        vec2 uv = gl_FragCoord.xy / u_res;
-        vec2 p = uv * 4.0;
-
-        float n = noise(p + u_time * 0.05);
-        n += 0.5 * noise(p * 2.0 + u_time * 0.08);
-        n += 0.25 * noise(p * 4.0 - u_time * 0.06);
-        n /= 1.75;
-
-        // Mouse interaction
-        float dist = length(uv - u_mouse);
-        float ripple = sin(dist * 20.0 - u_time * 2.0) * 0.04;
-        n += ripple * smoothstep(0.3, 0.0, dist);
-
-        // Dither
-        float pixelSize = 3.0;
-        vec2 pixelUV = floor(gl_FragCoord.xy / pixelSize) * pixelSize;
-        float dither = hash(pixelUV + u_time * 0.01);
-        float levels = 4.0;
-        n = floor(n * levels + dither) / levels;
-
-        // Base color near #0A0A0A — very dark with subtle variation
-        float base = 0.038;
-        float val = base + n * 0.022;
-
-        gl_FragColor = vec4(val, val, val * 1.02, 1.0);
-      }
-    `
-
-    const compile = (type, src) => {
-      const s = gl.createShader(type)
-      gl.shaderSource(s, src)
-      gl.compileShader(s)
-      return s
+    const noise = (x, y, t) => {
+      const s = Math.sin(x * 0.8 + t * 0.3) * Math.cos(y * 0.6 - t * 0.2)
+      const s2 = Math.sin(x * 1.6 - t * 0.15) * Math.sin(y * 1.2 + t * 0.25)
+      const s3 = Math.cos(x * 0.4 + y * 0.5 + t * 0.1)
+      return (s + s2 * 0.5 + s3 * 0.25) / 1.75
     }
 
-    const prog = gl.createProgram()
-    gl.attachShader(prog, compile(gl.VERTEX_SHADER, vert))
-    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, frag))
-    gl.linkProgram(prog)
-    gl.useProgram(prog)
-
-    const buf = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW)
-
-    const pos = gl.getAttribLocation(prog, 'a_pos')
-    gl.enableVertexAttribArray(pos)
-    gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0)
-
-    const uRes = gl.getUniformLocation(prog, 'u_res')
-    const uTime = gl.getUniformLocation(prog, 'u_time')
-    const uMouse = gl.getUniformLocation(prog, 'u_mouse')
-
+    const LEVELS = 5
     const render = () => {
-      timeRef.current += 0.016
-      gl.uniform2f(uRes, canvas.width, canvas.height)
-      gl.uniform1f(uTime, timeRef.current)
-      gl.uniform2f(uMouse, mouseRef.current.x, mouseRef.current.y)
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+      t += 0.015
+      const w = canvas.width
+      const h = canvas.height
+      const mx = mouseRef.current.x
+      const my = mouseRef.current.y
+      const imageData = ctx.createImageData(w, h)
+      const data = imageData.data
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const nx = x / w
+          const ny = y / h
+
+          // Mouse ripple
+          const dx = nx - mx
+          const dy = ny - my
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          const ripple = Math.sin(dist * 18 - t * 3) * 0.06 * Math.max(0, 1 - dist * 3)
+
+          let n = noise(nx * 5, ny * 5, t) + ripple
+          n = (n + 1) / 2 // 0..1
+
+          // Ordered dither matrix 4x4
+          const bayer = [
+            [ 0, 8, 2,10],
+            [12, 4,14, 6],
+            [ 3,11, 1, 9],
+            [15, 7,13, 5],
+          ]
+          const bx = x % 4
+          const by = y % 4
+          const threshold = bayer[by][bx] / 16
+
+          const quantized = Math.floor(n * LEVELS + threshold) / LEVELS
+          const clamped = Math.max(0, Math.min(1, quantized))
+
+          // Map to near-black palette — base ~#0A0A0A, max ~#1A1A1C
+          const base = 10
+          const range = 16
+          const val = Math.round(base + clamped * range)
+
+          const idx = (y * w + x) * 4
+          data[idx] = val
+          data[idx + 1] = val
+          data[idx + 2] = Math.round(val * 1.05)
+          data[idx + 3] = 255
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0)
       animRef.current = requestAnimationFrame(render)
     }
+
     render()
 
     return () => {
@@ -136,7 +111,7 @@ export default function DitherBackground() {
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.85,
+        imageRendering: 'pixelated',
       }}
     />
   )

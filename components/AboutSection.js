@@ -11,28 +11,14 @@ const paragraphs = [
 
 export default function AboutSection() {
   return (
-    <section
-      className="relative z-10"
-      style={{
-        padding: 'clamp(80px, 14vh, 160px) clamp(24px, 6vw, 80px) clamp(100px, 18vh, 200px)',
-      }}
-    >
+    <section className="relative z-10" style={{ padding: 'clamp(80px, 14vh, 160px) clamp(24px, 6vw, 80px) clamp(100px, 18vh, 200px)' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <p
-          style={{
-            fontSize: 'clamp(9px, 1vw, 11px)',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: '#6B6866',
-            marginBottom: 'clamp(32px, 5vh, 56px)',
-            fontWeight: 400,
-          }}
-        >
+        <p style={{ fontSize: 'clamp(9px, 1vw, 11px)', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#6B6866', marginBottom: 'clamp(32px, 5vh, 56px)', fontWeight: 400 }}>
           <DecryptedText
             text="About the Perfumer"
             animateOn="view"
             sequential={true}
-            speed={30}
+            speed={90}
             characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             className="text-[#6B6866]"
             encryptedClassName="text-[#2A2826]"
@@ -40,22 +26,12 @@ export default function AboutSection() {
         </p>
 
         {paragraphs.map((p, i) => (
-          <p
-            key={i}
-            style={{
-              fontSize: 'clamp(13px, 1.5vw, 16px)',
-              letterSpacing: '0.03em',
-              lineHeight: 1.85,
-              color: '#B0AEAB',
-              fontWeight: 300,
-              marginBottom: 'clamp(20px, 3.5vh, 36px)',
-            }}
-          >
+          <p key={i} style={{ fontSize: 'clamp(13px, 1.5vw, 16px)', letterSpacing: '0.03em', lineHeight: 1.85, color: '#B0AEAB', fontWeight: 300, marginBottom: 'clamp(20px, 3.5vh, 36px)' }}>
             <DecryptedText
               text={p}
               animateOn="view"
               sequential={true}
-              speed={12}
+              speed={36}
               characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-"
               className="text-[#B0AEAB]"
               encryptedClassName="text-[#2A2826]"
@@ -63,13 +39,7 @@ export default function AboutSection() {
           </p>
         ))}
 
-        <div
-          style={{
-            marginTop: 'clamp(48px, 8vh, 96px)',
-            paddingTop: 'clamp(24px, 4vh, 40px)',
-            borderTop: '1px solid #1A1918',
-          }}
-        >
+        <div style={{ marginTop: 'clamp(48px, 8vh, 96px)', paddingTop: 'clamp(24px, 4vh, 40px)', borderTop: '1px solid #1A1918' }}>
           <p style={{ fontSize: 'clamp(9px, 1vw, 10px)', letterSpacing: '0.14em', color: '#3A3836', textTransform: 'uppercase' }}>
             © {new Date().getFullYear()} In Exile Parfums — Los Angeles, California — All Rights Reserved
           </p>

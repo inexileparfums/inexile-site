@@ -47,23 +47,12 @@ export default function ManifestoSection() {
 
           if (line.size === 'hero') {
             return (
-              <div
-                key={i}
-                style={{
-                  fontSize: 'clamp(18px, 3.2vw, 30px)',
-                  letterSpacing: '0.14em',
-                  lineHeight: 1.3,
-                  fontWeight: 500,
-                  color: '#E8E6E3',
-                  margin: 'clamp(24px, 4vh, 48px) 0',
-                  textTransform: 'uppercase',
-                }}
-              >
+              <div key={i} style={{ fontSize: 'clamp(18px, 3.2vw, 30px)', letterSpacing: '0.14em', lineHeight: 1.3, fontWeight: 500, color: '#E8E6E3', margin: 'clamp(24px, 4vh, 48px) 0', textTransform: 'uppercase' }}>
                 <DecryptedText
                   text={line.text}
                   animateOn="view"
                   sequential={true}
-                  speed={28}
+                  speed={84}
                   characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%-."
                   className="text-brand-text"
                   encryptedClassName="text-brand-dim"
@@ -73,22 +62,12 @@ export default function ManifestoSection() {
           }
 
           return (
-            <div
-              key={i}
-              style={{
-                fontSize: 'clamp(13px, 1.5vw, 16px)',
-                letterSpacing: '0.04em',
-                lineHeight: 1.85,
-                fontWeight: 300,
-                paddingLeft: line.indent ? 'clamp(16px, 3vw, 32px)' : 0,
-                marginBottom: '0.15em',
-              }}
-            >
+            <div key={i} style={{ fontSize: 'clamp(13px, 1.5vw, 16px)', letterSpacing: '0.04em', lineHeight: 1.85, fontWeight: 300, paddingLeft: line.indent ? 'clamp(16px, 3vw, 32px)' : 0, marginBottom: '0.15em' }}>
               <DecryptedText
                 text={line.text}
                 animateOn="view"
                 sequential={true}
-                speed={18}
+                speed={54}
                 characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-"
                 className={line.indent ? 'text-[#9A9895]' : 'text-[#C4C2BF]'}
                 encryptedClassName="text-[#3A3836]"
