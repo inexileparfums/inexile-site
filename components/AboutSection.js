@@ -18,7 +18,7 @@ export default function AboutSection() {
             text="About the Perfumer"
             animateOn="view"
             sequential={true}
-            speed={90}
+            speed={28}
             characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             className="text-[#6B6866]"
             encryptedClassName="text-[#2A2826]"
@@ -31,7 +31,7 @@ export default function AboutSection() {
               text={p}
               animateOn="view"
               sequential={true}
-              speed={36}
+              speed={8}
               characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-"
               className="text-[#B0AEAB]"
               encryptedClassName="text-[#2A2826]"
