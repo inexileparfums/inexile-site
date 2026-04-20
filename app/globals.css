@@ -10,10 +10,10 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background-color: #0A0A0A; }
 
 body {
-  background-color: var(--bg);
+  background-color: transparent;
   color: var(--text);
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 300;
@@ -22,19 +22,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.manifesto-line {
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-.manifesto-line.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 ::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-track { background: #0A0A0A; }
 ::-webkit-scrollbar-thumb { background: #2a2a28; }
 
 input { outline: none; border-radius: 0; -webkit-appearance: none; appearance: none; }
