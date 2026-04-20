@@ -38,7 +38,7 @@ const lines = [
 
 export default function ManifestoSection() {
   return (
-    <section className="relative z-10" style={{ padding: '18vh 0 20vh' }}>
+    <section className="relative z-10" style={{ padding: '40vh 0 20vh' }}>
       <div style={{ maxWidth: '660px', margin: '0 auto', padding: '0 clamp(24px, 6vw, 80px)' }}>
         {lines.map((line, i) => {
           if (line.size === 'spacer') {
@@ -67,7 +67,7 @@ export default function ManifestoSection() {
                 text={line.text}
                 animateOn="view"
                 sequential={true}
-                speed={54}
+                speed={28}
                 characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-"
                 className={line.indent ? 'text-[#9A9895]' : 'text-[#C4C2BF]'}
                 encryptedClassName="text-[#3A3836]"

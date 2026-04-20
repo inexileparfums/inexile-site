@@ -28,8 +28,9 @@ export default function IntroSection() {
           style={{ objectFit: 'contain', opacity: 0.85 }} />
       </motion.div>
 
+      {/* Full screen intro — logo centered, text below fold */}
       <section className="relative flex items-center justify-center"
-        style={{ height: '50vh', minHeight: '340px' }}>
+        style={{ height: '100svh', minHeight: '600px' }}>
         <motion.div
           animate={{ opacity: scrolled ? 0 : 1, scale: scrolled ? 0.92 : 1 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
