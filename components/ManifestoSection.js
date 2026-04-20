@@ -1,9 +1,9 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import DecryptedText from './DecryptedText'
 
 const lines = [
   { text: 'IN EXILE was born from the belief that identity is forged through creation.', size: 'body' },
-  { text: 'Fragrance is armor, expression, and self-definition', size: 'body' },
+  { text: 'Fragrance is armor, expression, and self-definition —', size: 'body' },
   { text: 'carried without explanation.', size: 'body', indent: true },
   { text: '', size: 'spacer' },
   { text: 'IN EXILE exists in the space between loss and creation.', size: 'body' },
@@ -27,7 +27,7 @@ const lines = [
   { text: '', size: 'spacer' },
   { text: 'Every composition from IN EXILE is created with purpose.', size: 'body' },
   { text: 'Nothing is accidental. Nothing is rushed.', size: 'body' },
-  { text: 'Each fragrance is an artifact of endurance', size: 'body' },
+  { text: 'Each fragrance is an artifact of endurance —', size: 'body' },
   { text: 'a reflection of resilience and self-definition.', size: 'body', indent: true },
   { text: '', size: 'spacer' },
   { text: 'IN EXILE is not about perfection. It is about truth.', size: 'body' },
@@ -37,33 +37,6 @@ const lines = [
 ]
 
 export default function ManifestoSection() {
-  const lineRefs = useRef([])
-
-  useEffect(() => {
-    const observers = []
-
-    lineRefs.current.forEach((el, i) => {
-      if (!el || el.dataset.spacer) return
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setTimeout(() => {
-                el.classList.add('revealed')
-              }, i % 3 * 60)
-            }
-          })
-        },
-        { threshold: 0.3, rootMargin: '0px 0px -60px 0px' }
-      )
-      observer.observe(el)
-      observers.push(observer)
-    })
-
-    return () => observers.forEach((o) => o.disconnect())
-  }, [])
-
   return (
     <section className="relative z-10" style={{ padding: '18vh 0 20vh' }}>
       <div style={{ maxWidth: '660px', margin: '0 auto', padding: '0 clamp(24px, 6vw, 80px)' }}>
@@ -76,8 +49,6 @@ export default function ManifestoSection() {
             return (
               <div
                 key={i}
-                ref={(el) => (lineRefs.current[i] = el)}
-                className="manifesto-line"
                 style={{
                   fontSize: 'clamp(18px, 3.2vw, 30px)',
                   letterSpacing: '0.14em',
@@ -88,7 +59,15 @@ export default function ManifestoSection() {
                   textTransform: 'uppercase',
                 }}
               >
-                {line.text}
+                <DecryptedText
+                  text={line.text}
+                  animateOn="view"
+                  sequential={true}
+                  speed={28}
+                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%-."
+                  className="text-brand-text"
+                  encryptedClassName="text-brand-dim"
+                />
               </div>
             )
           }
@@ -96,19 +75,24 @@ export default function ManifestoSection() {
           return (
             <div
               key={i}
-              ref={(el) => (lineRefs.current[i] = el)}
-              className="manifesto-line"
               style={{
                 fontSize: 'clamp(13px, 1.5vw, 16px)',
                 letterSpacing: '0.04em',
                 lineHeight: 1.85,
                 fontWeight: 300,
-                color: line.indent ? '#9A9895' : '#C4C2BF',
                 paddingLeft: line.indent ? 'clamp(16px, 3vw, 32px)' : 0,
                 marginBottom: '0.15em',
               }}
             >
-              {line.text}
+              <DecryptedText
+                text={line.text}
+                animateOn="view"
+                sequential={true}
+                speed={18}
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-"
+                className={line.indent ? 'text-[#9A9895]' : 'text-[#C4C2BF]'}
+                encryptedClassName="text-[#3A3836]"
+              />
             </div>
           )
         })}
