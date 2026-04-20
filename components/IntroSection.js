@@ -29,7 +29,7 @@ export default function IntroSection() {
       </motion.div>
 
       <section className="relative flex items-center justify-center"
-        style={{ height: '100svh', minHeight: '600px' }}>
+        style={{ height: '50vh', minHeight: '340px' }}>
         <motion.div
           animate={{ opacity: scrolled ? 0 : 1, scale: scrolled ? 0.92 : 1 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
