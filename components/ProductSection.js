@@ -60,8 +60,12 @@ export default function ProductSection() {
           Eau de Parfum
         </p>
 
-        <p style={{ fontSize: 'clamp(9px, 1vw, 11px)', letterSpacing: '0.18em', color: '#6B6866', textTransform: 'uppercase', fontWeight: 400, marginBottom: 'clamp(28px, 4vh, 48px)' }}>
+        <p style={{ fontSize: 'clamp(9px, 1vw, 11px)', letterSpacing: '0.18em', color: '#6B6866', textTransform: 'uppercase', fontWeight: 400, marginBottom: '20px' }}>
           30ML / 1 FL OZ
+        </p>
+
+        <p style={{ fontSize: 'clamp(22px, 3vw, 32px)', letterSpacing: '0.08em', color: '#E8E6E3', fontWeight: 300, marginBottom: 'clamp(28px, 4vh, 48px)' }}>
+          $150
         </p>
 
         <div style={{ borderTop: '1px solid #1E1D1B', paddingTop: 'clamp(24px, 4vh, 40px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
