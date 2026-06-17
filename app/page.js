@@ -1,6 +1,6 @@
 import IntroSection from '../components/IntroSection'
-import ManifestoSection from '../components/ManifestoSection'
 import ProductSection from '../components/ProductSection'
+import ManifestoSection from '../components/ManifestoSection'
 import SignupSection from '../components/SignupSection'
 import AboutSection from '../components/AboutSection'
 import ScrollControls from '../components/ScrollControls'
@@ -12,8 +12,8 @@ export default function Home() {
       <DitherBackground />
       <main className="relative z-10">
         <IntroSection />
-        <ManifestoSection />
         <ProductSection />
+        <ManifestoSection />
         <SignupSection />
         <AboutSection />
       </main>
